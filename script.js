@@ -21,7 +21,24 @@ document.querySelectorAll(".nav-links a, .nav-cta").forEach((link) => {
 
 leadForm?.addEventListener("submit", (event) => {
   event.preventDefault();
-  formNote.textContent = "Recebido. Vamos retornar para avaliar seu perfil.";
+  const formData = new FormData(leadForm);
+  const name = String(formData.get("name") || "").trim();
+  const company = String(formData.get("company") || "").trim();
+  const contact = String(formData.get("contact") || "").trim();
+
+  const message = [
+    "Olá, Marcus. Quero avaliar o perfil da minha empresa no Google Meu Negócio.",
+    "",
+    `Nome: ${name}`,
+    `Empresa: ${company}`,
+    `Contato: ${contact}`,
+    "",
+    "Vim pela landing page da Santyago Publicidade.",
+  ].join("\n");
+
+  const whatsappUrl = `https://wa.me/5531975160287?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  formNote.textContent = "Abrimos o WhatsApp com sua mensagem pronta para envio.";
   leadForm.reset();
 });
 
